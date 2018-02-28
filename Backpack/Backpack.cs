@@ -39,7 +39,6 @@ public class Backpack : MonoBehaviour {
 				if (cellMatrix [i, j].CellItem != null) {
 					if (cellMatrix [i, j].CellItem.ItemName == item.ItemName) {
 						if (cellMatrix [i, j].CellItem.NowInStack != cellMatrix [i, j].CellItem.MaxInStack) {
-							Debug.Log (cellMatrix [i, j].CellItem.GetHashCode ());
 							checker = item.NowInStack + cellMatrix [i, j].CellItem.NowInStack;
 							if (checker > cellMatrix [i, j].CellItem.MaxInStack) {
 								checker = cellMatrix [i, j].CellItem.MaxInStack - cellMatrix [i, j].CellItem.NowInStack;

@@ -4,18 +4,30 @@ using UnityEngine;
 
 public  class Item  {
 
+	 public enum ItemType
+	{
+		MeleeWeapon,
+		RangeWeapon,
+		Food,
+		Item
+	}
+
 	private Texture2D _itemTexture;
 	private string _itemName;
 	private int _maxInStack;
 	private int _nowInStack;
 	private int _durability;
+	private ItemType _type;
 
-	public Item(Texture2D texture, string name, int maxInStack, int nowInStack, int  durability){
+
+
+	public Item(Texture2D texture, string name, int maxInStack, int nowInStack, int  durability, ItemType itemType){
 		ItemTexture = texture;
 		ItemName = name;
 		MaxInStack = maxInStack;
 		NowInStack = nowInStack;
 		Durability = durability;
+		Type = itemType;
 	}
 
 	public Item(){
@@ -24,6 +36,16 @@ public  class Item  {
 		MaxInStack = 0;
 		NowInStack = 0;
 		Durability = 0;
+		Type = ItemType.Item;
+	}
+
+	public ItemType Type{
+		get{ 
+			return _type;
+		}
+		set{ 
+			_type = value;
+		}
 	}
 
 	public int Durability{

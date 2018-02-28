@@ -15,7 +15,7 @@ public class ActionController : MonoBehaviour {
 
 			void Update()
 			{
-				selectedObjects = Camera.main.GetComponent<UnitSelection>().selectedObjects;
+//				selectedObjects = Camera.main.GetComponent<UnitSelection>().selectedObjects;
 				FollowAction();
 				FollowHealStatus();							
 			}

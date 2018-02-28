@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon  {
+public abstract class Weapon:Item  {
 	private int _damage;
 	private int _range;
 
