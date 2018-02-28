@@ -22,6 +22,7 @@ public class HumanSkills{
 		currentHuman.BaseHealth += _fightingSkill * 10;
 		currentHuman.BaseDamage += _fightingSkill * 2 ;
 		currentHuman.BaseArmor += _fightingSkill + 5;
+		currentHuman.MaxStamina += 10;
 	}
 
 	public void RecalculateCrafting(){

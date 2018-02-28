@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract  class Item : MonoBehaviour {
+public  class Item  {
 
 	private Texture2D _itemTexture;
 	private string _itemName;
@@ -10,6 +10,21 @@ public abstract  class Item : MonoBehaviour {
 	private int _nowInStack;
 	private int _durability;
 
+	public Item(Texture2D texture, string name, int maxInStack, int nowInStack, int  durability){
+		ItemTexture = texture;
+		ItemName = name;
+		MaxInStack = maxInStack;
+		NowInStack = nowInStack;
+		Durability = durability;
+	}
+
+	public Item(){
+		ItemTexture = null;
+		ItemName = string.Empty;
+		MaxInStack = 0;
+		NowInStack = 0;
+		Durability = 0;
+	}
 
 	public int Durability{
 		get{	
@@ -55,14 +70,9 @@ public abstract  class Item : MonoBehaviour {
 		}
 
 		set{ 
-			_nowInStack += value;
-			if (_nowInStack > MaxInStack)
-				_nowInStack = MaxInStack;
+			_nowInStack = value;
 		}
 
 	}
-
-	public  void Initialize(){
 		
-	} 
 }

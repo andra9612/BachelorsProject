@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodAndWater : Item {
+public class FoodAndWater {
 
 	private int _nutrition;
 	private  int _productType;

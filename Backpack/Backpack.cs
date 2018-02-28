@@ -11,12 +11,16 @@ public class Backpack : MonoBehaviour {
 
 	public Cell[,] cellMatrix;
 
-	void Start(){
+	/*void Start(){
 		InitializeCellMatrix ();
-	}
+	}*/
 
-	private void InitializeCellMatrix(){
+	public void InitializeCellMatrix(int row, int col){
 		int counter = 0;
+
+		RowCount = row;
+		ColumnCount = col;
+
 		cellMatrix = new Cell[RowCount, ColumnCount];
 
 		for (int i = 0; i < RowCount; i++) {
@@ -25,6 +29,43 @@ public class Backpack : MonoBehaviour {
 				counter++;
 			}
 		}
+	}
+
+	public Item  Add(Item  item){
+		int checker = 0;
+
+		for (int i = 0; i < cellMatrix.GetLength(0); i++) {
+			for (int j = 0; j < cellMatrix.GetLength(1); j++) {
+				if (cellMatrix [i, j].CellItem != null) {
+					if (cellMatrix [i, j].CellItem.ItemName == item.ItemName) {
+						if (cellMatrix [i, j].CellItem.NowInStack != cellMatrix [i, j].CellItem.MaxInStack) {
+							Debug.Log (cellMatrix [i, j].CellItem.GetHashCode ());
+							checker = item.NowInStack + cellMatrix [i, j].CellItem.NowInStack;
+							if (checker > cellMatrix [i, j].CellItem.MaxInStack) {
+								checker = cellMatrix [i, j].CellItem.MaxInStack - cellMatrix [i, j].CellItem.NowInStack;
+								item.NowInStack -= checker;
+								cellMatrix [i, j].CellItem.NowInStack = cellMatrix [i, j].CellItem.MaxInStack;
+								return new Item(item.ItemTexture,item.ItemName,item.MaxInStack,item.NowInStack,item.Durability);
+							} else {
+								cellMatrix [i, j].CellItem.NowInStack += item.NowInStack;
+								return null;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < cellMatrix.GetLength(0); i++) {
+			for (int j = 0; j < cellMatrix.GetLength(1); j++) {
+				if (cellMatrix [i, j].CellItem == null) {
+					cellMatrix [i, j].CellItem = new Item(item.ItemTexture,item.ItemName,item.MaxInStack,item.NowInStack,item.Durability);
+					return null;
+				}
+			}
+		}
+
+		return item;
 	}
 
 	public int ColumnCount{
