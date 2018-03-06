@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActionController : MonoBehaviour {
 	
-	private List<Human> selectedObjects;
+	private List<GameObject> selectedObjects;
 			private GameObject target;
 			private bool isHealing;
 			private Vector3 position;
@@ -15,7 +15,7 @@ public class ActionController : MonoBehaviour {
 
 			void Update()
 			{
-//				selectedObjects = Camera.main.GetComponent<UnitSelection>().selectedObjects;
+				selectedObjects = Camera.main.GetComponent<UnitSelection>().selectedObjects;
 				FollowAction();
 				FollowHealStatus();							
 			}
@@ -27,7 +27,7 @@ public class ActionController : MonoBehaviour {
 					if(selectedObjects.Count != 0)
 					{	
 						position = Input.mousePosition;
-						Debug.Log (position);
+						
 						Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 						RaycastHit hit = new RaycastHit ();
 						if(Physics.Raycast(ray, out hit))
@@ -35,7 +35,7 @@ public class ActionController : MonoBehaviour {
 							target = hit.collider.gameObject;
 						}
 
-						ActionManager.ActionMaker(selectedObjects, target, position, isHealing);
+				ActionManager.ActionMaker(selectedObjects, target, hit.point, isHealing);
 					}
 					
 				}

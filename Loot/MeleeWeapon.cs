@@ -6,17 +6,18 @@ public class MeleeWeapon : Weapon {
 
 	private int _tiredness;
 
-	public MeleeWeapon(Texture2D texture, string name, int maxInStack, int nowInStack,
-		int  durability, ItemType itemType, int damage,int range,int tiredness){
-		ItemTexture = texture;
-		ItemName = name;
-		MaxInStack = maxInStack;
-		NowInStack = nowInStack;
-		Durability = durability;
-		Type = itemType;
-		Damage = damage;
-		Range = range;
+	public MeleeWeapon (Texture2D texture, string name, int maxInStack, int nowInStack,
+	                   int  durability, ItemType itemType, int damage, int range, int tiredness)
+		:base(damage,range,texture,name,maxInStack,nowInStack,durability, ItemType.RangeWeapon)
+	{
 		Tiredness = tiredness;
+	}
+
+	public override void UseItem (Human human)
+	{
+		Debug.Log ("Use melee weapon");
+		human.PersonWeapon = this;
+		NowInStack--;
 	}
 
 	public int Tiredness{

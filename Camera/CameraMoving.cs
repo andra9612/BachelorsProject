@@ -37,12 +37,12 @@ public class CameraMoving : MonoBehaviour
 	GameObject currentlySelected;
 
 	void Start(){
+		
 		right = new Vector3 (1,0,0);
 		forward = new Vector3 (0,0,1);
 		translate = new Vector3 ();
 		up = new Vector3(0, 1, 0);
 		zero = Vector3.zero;
-		//tr = GameObject.Find("Plane").GetComponent<Plane>();
 		terrainHeight = 500;
 		terrainWidth =500;
 		screenHeight = Screen.height;
@@ -52,7 +52,10 @@ public class CameraMoving : MonoBehaviour
 	void Update()
 	{ 
 
-
+		isCameraRotating ();
+		IsFOVChanging ();
+		MoveCameraWithMouse ();
+		MoveCameraWithButtons ();
 
 		/*if (Input.GetMouseButtonDown (0)) 
 		{			
@@ -76,12 +79,24 @@ public class CameraMoving : MonoBehaviour
 			endPoint = Input.mousePosition;
 			isSelecting = false;
 		}
+
+
+		if (Time.frameCount % 30 == 0) {
+			System.GC.Collect ();
+		}
 		*/
+	}
+
+	void isCameraRotating()
+	{
 		if(Input.GetMouseButton(1))
 		{
 			transform.RotateAround (transform.position, up, Input.GetAxis ("Mouse X")* degrees);	
 		}
+	}
 
+	void IsFOVChanging()
+	{
 		if(Input.GetAxis("Mouse ScrollWheel") !=0)
 		{
 
@@ -90,6 +105,10 @@ public class CameraMoving : MonoBehaviour
 			fov = Mathf.Clamp (fov, minFov, maxFov);
 			Camera.main.fieldOfView = fov;
 		}
+	}
+
+	void MoveCameraWithMouse ()
+	{
 
 		if (Input.mousePosition.x >= (screenWidth - 5) && transform.position.x <= terrainWidth) {
 			//transform.position += right * MoveSpeed * Time.deltaTime;
@@ -119,7 +138,10 @@ public class CameraMoving : MonoBehaviour
 			transform.Translate (translate, Space.Self);
 
 		}
+	}
 
+	void MoveCameraWithButtons()
+	{
 		if (Input.GetAxis ("Horizontal") != 0) {			
 			/*translate_x = Input.GetAxis ("Horizontal") * MoveSpeed * Time.deltaTime;
 			translate.Set (translate_x, 0,0);
@@ -153,9 +175,8 @@ public class CameraMoving : MonoBehaviour
 			transform.Translate (translate, Space.Self);
 		}
 
-		if (Time.frameCount % 30 == 0) {
-			System.GC.Collect ();
-		}
 	}
+
+
 }
 

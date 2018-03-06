@@ -10,13 +10,18 @@ public class Human : Humanoid {
 
 	private bool isTired = false;
 
+	private int saveDamage = 0;
+
 	private int _hunger;
 	private int _thirst;
 	private int _stamina;
-	private int _maxStamina;
+
+	private Weapon _weapon;
 
 	private const float needsCD = 180f;
 	private float hungerAndThirstyTime = needsCD;
+
+	public GameObject Selected;
 
 	 void Start(){
 		Initialize ();
@@ -33,14 +38,12 @@ public class Human : Humanoid {
 		BaseArmor = 0;
 		BaseMoveSpeed = 8f;
 		BaseAttackSpeed = 5f;
-		MaxStamina = 100;
-		Stamina = MaxStamina;
+		Stamina = 100;
 		Hunger = 100;
 		Thirst = 100;
 
 		_skills = new HumanSkills (this);
 	}
-
 
 	private void CalculateNeedsTime(){
 		if (hungerAndThirstyTime >= 0)
@@ -49,6 +52,7 @@ public class Human : Humanoid {
 			DecremenNeeds ();
 		}
 
+		//Debug.Log (hungerAndThirstyTime);
 	}
 
 
@@ -57,6 +61,20 @@ public class Human : Humanoid {
 		Thirst -= 10;
 		hungerAndThirstyTime = needsCD;
 		Show ();
+	}
+
+	public Weapon PersonWeapon{
+		get{ 
+			return _weapon;
+		}
+		set{ 
+			_weapon = value;
+			if (value != null) {
+				saveDamage = _weapon.Damage;
+				BaseDamage += saveDamage;
+			} else 
+				BaseDamage -= saveDamage;
+		}
 	}
 
 	public HumanSkills Skills{
@@ -112,12 +130,12 @@ public class Human : Humanoid {
 
 		set{ 
 			_stamina = value;
-			if (_stamina  <= MaxStamina && _stamina >=0) {
-				if (_stamina == 0  && isTired == false) {
+			if (_stamina  <= 100 && _stamina >=0) {
+				if (_stamina <= 40  && isTired == false) {
 					isTired = true;
 					startDamage = BaseDamage;
 					BaseDamage -= (int)(BaseDamage / 2);
-				} else if (BaseDamage != startDamage && isTired ==  true && _stamina > 0) {
+				} else if (BaseDamage != startDamage && isTired ==  true && _stamina > 40) {
 					BaseDamage = (int)(BaseDamage * 2);
 					isTired = false;
 				}
@@ -127,24 +145,13 @@ public class Human : Humanoid {
 					_stamina = 0;
 					Debug.Log ("Stamina is empty");
 				}
-				if (_stamina > MaxStamina) {
-					_stamina = MaxStamina;
+				if (_stamina > 100) {
+					_stamina = 100;
 					Debug.Log ("Stamina is full");
 				}
 			}
 
 		}
-	}
-
-	public int  MaxStamina {
-		get{
-			return _maxStamina;
-		}
-		set{ 
-			_maxStamina = value;
-			Stamina = _maxStamina;
-		}
-
 	}
 
 	public void Show (){

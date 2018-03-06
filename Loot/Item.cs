@@ -39,6 +39,10 @@ public  class Item  {
 		Type = ItemType.Item;
 	}
 
+	public virtual void UseItem(Human human){
+		Debug.Log ("Add to craft menu");
+	}
+
 	public ItemType Type{
 		get{ 
 			return _type;
