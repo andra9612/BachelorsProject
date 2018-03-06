@@ -23,7 +23,9 @@ public class ShowBackpack : MonoBehaviour {
 	bool isOpenedChest = false;
 
 	Rect coordinateRect;
-
+	
+        public GameObject chosenChest;
+	
 	// Use this for initialization
 	void Start () {
 		human = GameObject.Find ("Player").GetComponent<Human> ();
