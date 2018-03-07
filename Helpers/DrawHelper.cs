@@ -25,5 +25,10 @@ public class DrawHelper {
 		bounds.SetMinMax( min, max );
 		return bounds;
 	}
+
+	public static void OpenChestInWindow(GameObject target)
+	{
+		
+	}
 		
 }

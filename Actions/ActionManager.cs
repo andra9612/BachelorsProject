@@ -6,7 +6,7 @@ public static class ActionManager {
 	
 	static string _actionType;
 
-	public static void ActionMaker(List<Human> selectedObjects, GameObject target, Vector3 position, bool isHeal)
+	public static void ActionMaker(List<GameObject> selectedObjects, GameObject target, Vector3 position, bool isHeal)
 	{		
 		switch (target.tag) 
 		{
@@ -26,10 +26,17 @@ public static class ActionManager {
 					_actionType = "move";
 			break;
 		}
-
-		foreach (Human h in selectedObjects) 
+<<<<<<< HEAD
+		Debug.Log (selectedObjects.Count);
+		foreach (GameObject go in selectedObjects) 
 		{
-			h.GetComponent<ActionMaker>().MakeAction(target, position, _actionType);
+			Debug.Log (go.name);
+=======
+
+		foreach (GameObject go in selectedObjects) 
+		{
+>>>>>>> 0ae5f0d86388174acb0caee9372780532786ddc7
+			go.GetComponent<ActionMaker>().MakeAction(target, position, _actionType);
 		}
 	}
 }

@@ -44,7 +44,7 @@ public class Backpack : MonoBehaviour {
 								checker = cellMatrix [i, j].CellItem.MaxInStack - cellMatrix [i, j].CellItem.NowInStack;
 								item.NowInStack -= checker;
 								cellMatrix [i, j].CellItem.NowInStack = cellMatrix [i, j].CellItem.MaxInStack;
-								return new Item(item.ItemTexture,item.ItemName,item.MaxInStack,item.NowInStack,item.Durability);
+								return item;
 							} else {
 								cellMatrix [i, j].CellItem.NowInStack += item.NowInStack;
 								return null;
@@ -58,7 +58,8 @@ public class Backpack : MonoBehaviour {
 		for (int i = 0; i < cellMatrix.GetLength(0); i++) {
 			for (int j = 0; j < cellMatrix.GetLength(1); j++) {
 				if (cellMatrix [i, j].CellItem == null) {
-					cellMatrix [i, j].CellItem = new Item(item.ItemTexture,item.ItemName,item.MaxInStack,item.NowInStack,item.Durability);
+					cellMatrix [i, j].CellItem = item;
+					//cellMatrix [i, j].CellItem = new Item(item.ItemTexture,item.ItemName,item.MaxInStack,item.NowInStack,item.Durability);
 					return null;
 				}
 			}
