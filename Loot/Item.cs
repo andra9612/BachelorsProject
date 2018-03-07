@@ -1,8 +1,18 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract  class Item : MonoBehaviour {
+
+public  class Item  {
+
+	 public enum ItemType
+	{
+		MeleeWeapon,
+		RangeWeapon,
+		Food,
+		Item
+	}
+
 
 	private Texture2D _itemTexture;
 	private string _itemName;
@@ -10,6 +20,36 @@ public abstract  class Item : MonoBehaviour {
 	private int _nowInStack;
 	private int _durability;
 
+	private ItemType _type;
+
+
+
+	public Item(Texture2D texture, string name, int maxInStack, int nowInStack, int  durability, ItemType itemType){
+		ItemTexture = texture;
+		ItemName = name;
+		MaxInStack = maxInStack;
+		NowInStack = nowInStack;
+		Durability = durability;
+		Type = itemType;
+	}
+
+	public Item(){
+		ItemTexture = null;
+		ItemName = string.Empty;
+		MaxInStack = 0;
+		NowInStack = 0;
+		Durability = 0;
+		Type = ItemType.Item;
+	}
+
+	public ItemType Type{
+		get{ 
+			return _type;
+		}
+		set{ 
+			_type = value;
+		}
+	}
 
 	public int Durability{
 		get{	
@@ -55,14 +95,10 @@ public abstract  class Item : MonoBehaviour {
 		}
 
 		set{ 
-			_nowInStack += value;
-			if (_nowInStack > MaxInStack)
-				_nowInStack = MaxInStack;
+			_nowInStack = value;
+			
 		}
 
 	}
 
-	public  void Initialize(){
-		
-	} 
-}
+	}

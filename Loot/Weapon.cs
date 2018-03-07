@@ -1,10 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public class Weapon : Item {
 	private int _damage;
 	private int _range;
+
 
 	public int Damage{
 		get{	
