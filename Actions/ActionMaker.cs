@@ -12,10 +12,8 @@ public class ActionMaker : MonoBehaviour
 
 	void Start()
 	{
-<<<<<<< HEAD
 		agent = GetComponent<NavMeshAgent> ();
-=======
->>>>>>> 0ae5f0d86388174acb0caee9372780532786ddc7
+
 		isTargetExist = false;
 	}
 
@@ -24,19 +22,12 @@ public class ActionMaker : MonoBehaviour
 		if (isTargetExist)
 			CheckDistanceToTarget(_target);
 		DecreaseHealTimer ();
-<<<<<<< HEAD
-=======
-			
->>>>>>> 0ae5f0d86388174acb0caee9372780532786ddc7
+
 	}
 
 	public void MakeAction(GameObject target, Vector3 position, string actionType)
 	{		
-<<<<<<< HEAD
 		if (target.tag != "Ground") 
-=======
-		if (target.tag != "Groud") 
->>>>>>> 0ae5f0d86388174acb0caee9372780532786ddc7
 		{
 			isTargetExist = true;
 			_target = target;
@@ -47,11 +38,7 @@ public class ActionMaker : MonoBehaviour
 
 	private void MoveToPosition(Vector3 position)
 	{
-<<<<<<< HEAD
-		Debug.Log (position);
-=======
 		agent = this.gameObject.GetComponent<NavMeshAgent> ();
->>>>>>> 0ae5f0d86388174acb0caee9372780532786ddc7
 		agent.SetDestination (position);
 	}
 
@@ -76,11 +63,8 @@ public class ActionMaker : MonoBehaviour
 	{
 		//if((Vector3.Distance(this.gameObject.transform.position, _target.transform.position)) <= this.gameObject.GetComponent<Human>().CurrentWeapon.Range)
 		{
-<<<<<<< HEAD
-			//agent.Stop();
-=======
+
 			agent.Stop();
->>>>>>> 0ae5f0d86388174acb0caee9372780532786ddc7
 			_target.GetComponent<Zombie>().BaseHealth -= this.gameObject.GetComponent<Human>().BaseDamage;
 		}
 	}
@@ -89,11 +73,8 @@ public class ActionMaker : MonoBehaviour
 	{
 		if((Vector3.Distance(this.gameObject.transform.position, _target.transform.position)) <= 4.0)
 		{
-<<<<<<< HEAD
-			//agent.Stop();
-=======
+
 			agent.Stop();
->>>>>>> 0ae5f0d86388174acb0caee9372780532786ddc7
 			//ShowBackpack.chosenChest = _target;
 		}
 	}
@@ -104,11 +85,8 @@ public class ActionMaker : MonoBehaviour
 		{
 			if (healTimer == 0) 
 			{
-<<<<<<< HEAD
-				//agent.Stop ();
-=======
+
 				agent.Stop ();
->>>>>>> 0ae5f0d86388174acb0caee9372780532786ddc7
 				//_target.GetComponent<Human> ().BaseHealth += this.gameObject.GetComponent<Human> ().CurrentHealValue;
 				healTimer = 90f;
 			}

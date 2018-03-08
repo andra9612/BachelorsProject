@@ -67,8 +67,7 @@ public class Backpack : MonoBehaviour {
 
 		return item;
 	}
-
->>>>>>> 6d9104b72cff8329336b86230b98cc497c1f0dd8
+		
 	public int ColumnCount{
 		get{	
 			return _columnCount;

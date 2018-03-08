@@ -9,6 +9,7 @@ public  class Item  {
 	{
 		MeleeWeapon,
 		RangeWeapon,
+		Ammunition,
 		Food,
 		Item
 	}

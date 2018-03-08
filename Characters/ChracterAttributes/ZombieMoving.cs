@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZombieMoving : MonoBehaviour {
+public class ZombiesMoving : MonoBehaviour {
 
 	private NavMeshAgent agent;
 	private float timer;
