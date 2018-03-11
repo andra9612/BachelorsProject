@@ -27,7 +27,6 @@ public static class ActionManager {
 			break;
 		}
 
-
 		foreach (GameObject go in selectedObjects) 
 		{
 			go.GetComponent<ActionMaker>().MakeAction(target, position, _actionType);

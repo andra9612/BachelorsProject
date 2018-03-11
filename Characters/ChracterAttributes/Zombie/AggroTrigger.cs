@@ -16,8 +16,9 @@ public class AggroTrigger : MonoBehaviour {
 	{
 		if (collider.CompareTag ("Player")) 
 		{
-			
 			this.gameObject.transform.parent.gameObject.GetComponent<ZombieMoving> ().isTargetExist = true;
+			Debug.Log (collider.name + "entered");
+			agent.speed = 3f;
 			this.gameObject.transform.parent.GetChild (1).GetComponent<FollowTrigger> ().characters.Add(collider.gameObject);
 		}
 	}
