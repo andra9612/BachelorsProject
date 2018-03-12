@@ -26,16 +26,10 @@ public static class ActionManager {
 					_actionType = "move";
 			break;
 		}
-<<<<<<< HEAD
-		Debug.Log (selectedObjects.Count);
-		foreach (GameObject go in selectedObjects) 
-		{
-			Debug.Log (go.name);
-=======
+
 
 		foreach (GameObject go in selectedObjects) 
 		{
->>>>>>> 0ae5f0d86388174acb0caee9372780532786ddc7
 			go.GetComponent<ActionMaker>().MakeAction(target, position, _actionType);
 		}
 	}

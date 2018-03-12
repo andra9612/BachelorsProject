@@ -150,19 +150,11 @@ public class UnitSelection : MonoBehaviour
 				selectCharacter ();
 			else 
 			{
-<<<<<<< HEAD
-				/*foreach (var selectableObject in FindObjectsOfType<Human>()) {
-					if (IsWithinSelectionBounds (selectableObject.gameObject)) {
-						selectedObjects.Add (selectableObject.gameObject);
-					}
-				}*/
-=======
 				foreach (var selectableObject in FindObjectsOfType<Human>()) {
 					if (IsWithinSelectionBounds (selectableObject.gameObject)) {
 						selectedObjects.Add (selectableObject.gameObject);
 					}
 				}
->>>>>>> 0ae5f0d86388174acb0caee9372780532786ddc7
 				var sb = new StringBuilder ();
 				sb.AppendLine (string.Format ("Selecting [{0}] Units", selectedObjects.Count));
 				foreach (var selectedObject in selectedObjects)
