@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public  class Item  {
 
@@ -8,15 +9,18 @@ public  class Item  {
 	{
 		MeleeWeapon,
 		RangeWeapon,
+		Ammunition,
 		Food,
 		Item
 	}
+
 
 	private Texture2D _itemTexture;
 	private string _itemName;
 	private int _maxInStack;
 	private int _nowInStack;
 	private int _durability;
+
 	private ItemType _type;
 
 
@@ -97,8 +101,9 @@ public  class Item  {
 
 		set{ 
 			_nowInStack = value;
+			
 		}
 
 	}
-		
-}
+
+	}

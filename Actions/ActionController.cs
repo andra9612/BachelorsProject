@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class ActionController : MonoBehaviour {
 	
-	private List<GameObject> selectedObjects;
+			private List<GameObject> selectedObjects;
 			private GameObject target;
 			private bool isHealing;
-			private Vector3 position;
 			void Start()
 			{
 				isHealing = false;
@@ -26,8 +25,6 @@ public class ActionController : MonoBehaviour {
 				{
 					if(selectedObjects.Count != 0)
 					{	
-						position = Input.mousePosition;
-						
 						Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 						RaycastHit hit = new RaycastHit ();
 						if(Physics.Raycast(ray, out hit))

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallCollideAndAttackTrigger : MonoBehaviour {
+public class WallCollideTrigger : MonoBehaviour {
 
 	private float attackTimer;
-	private bool isTargetInAttackRange;
+	private List<GameObject> attackableTargets;
+	private float distance;
+	private GameObject target;
 
 	void Start()
 	{
@@ -14,33 +16,53 @@ public class WallCollideAndAttackTrigger : MonoBehaviour {
 
 	void Update()
 	{
-		if (isTargetInAttackRange)
-			DecreaseAttackTimer ();
+		if (attackableTargets.Count != 0)
+			AttackClosestTarget ();
 	}
 
 	void OnTriggerEnter(Collider collider)
 	{
 		if (collider.CompareTag ("Wall")) 
+		{			
+			GetComponent<ZombieMoving> ().MoveToPoint (GetComponent<ZombieMoving> ().moveFromPosition);
+		}
+		if (collider.CompareTag ("Player")) 
 		{
-			isTargetInAttackRange = true;
 			this.gameObject.GetComponent<ZombieMoving> ().timer = -1.0f;
+			attackableTargets.Add (collider.gameObject);
 		}
 			
 	}
 
-	void OnTriggerStay(Collider collider)
+	void OnTriggerExit(Collider collider)
 	{
 		if (collider.CompareTag ("Player")) 
 		{
-			if (attackTimer == 0) 
+			attackableTargets.RemoveAll(c => c.GetInstanceID() == collider.gameObject.GetInstanceID());
+		}
+	}
+
+	private void AttackClosestTarget ()
+	{
+		
+
+		if (attackTimer == 0)
+		{
+			distance = float.MaxValue;
+			foreach (GameObject go in attackableTargets) 
 			{
-				collider.gameObject.GetComponent<Human> ().BaseHealth -= this.gameObject.transform.parent.gameObject.GetComponent<Zombie> ().BaseDamage;
-				attackTimer = this.gameObject.transform.parent.gameObject.GetComponent<Zombie> ().BaseAttackSpeed;
+				if (Vector3.Distance (go.transform.position, this.transform.position) < distance) 
+				{
+					distance = Vector3.Distance (go.transform.position, this.transform.position);
+					target = go;
+				}
 			}
-				
+			target.GetComponent<Human> ().BaseHealth -= this.gameObject.transform.parent.gameObject.GetComponent<Zombie> ().BaseDamage;
+			attackTimer = this.gameObject.transform.parent.gameObject.GetComponent<Zombie> ().BaseAttackSpeed;
 		}
 
 	}
+		
 
 	private void DecreaseAttackTimer()
 	{

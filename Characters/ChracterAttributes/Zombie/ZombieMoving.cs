@@ -10,6 +10,11 @@ public class ZombieMoving : MonoBehaviour {
 	private float x;
 	private float z;
 	public bool isTargetExist;
+	private Vector3 targetPosition;
+	private float distance;
+	public Vector3 moveFromPosition;
+	public bool isPatrolling;
+	public float[] patrollPoints;
 
 	void Start () 
 	{
@@ -22,8 +27,16 @@ public class ZombieMoving : MonoBehaviour {
 	{
 		if (!isTargetExist) 
 		{
-			DecreaseMoveTimer ();
-			IsTimerEnded ();
+			if (isPatrolling) 
+			{
+				if(agent.remainingDistance < 0.3f)
+					GoToNextPatrollPoint ();
+			}
+			else 
+			{
+				RandomMoving ();
+				DecreaseMoveTimer ();
+			}
 		}
 	}
 
@@ -33,22 +46,42 @@ public class ZombieMoving : MonoBehaviour {
 			timer -= Time.deltaTime;
 	}
 
-	void IsTimerEnded ()
+	private void RandomMoving ()
 	{
 		if (timer <= 0.0f) 
 		{
 			timer = Random.Range (3, 10);
 			x = Random.Range (50,	300);
 			z = Random.Range (50,	300);
-			Debug.Log (timer + "  " + x + "  " + z);
-			MoveToPoint ();
+			moveFromPosition = transform.position;
+			MoveToPoint (new Vector3 (x, 0, z));
 		}
 
 	}
 
-	void MoveToPoint()
+	private void GoToNextPatrollPoint()
 	{
-		agent.SetDestination (new Vector3 (x, 0, z));
-	}		
+		int index = Random.Range (0, 50);
+		//agent.SetDestination (patrollPoints [index]);
+	}
+
+	public void MoveToPoint(Vector3 point)
+	{
+		agent.SetDestination (point);
+	}
+
+	public void FindClosestTarget (List<GameObject> characters)
+	{
+		distance = float.MaxValue;
+		foreach (GameObject go in characters) 
+		{
+			if (Vector3.Distance (go.transform.position, this.transform.position) < distance) 
+			{
+				distance = Vector3.Distance (go.transform.position, this.transform.position);
+				targetPosition = go.transform.position;
+			}
+		}
+		MoveToPoint(targetPosition);
+	}
 
 }

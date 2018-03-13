@@ -2,22 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HouseGenerator : MonoBehaviour {
+public class HouseEquipment : MonoBehaviour {
 	
-	public GameObject[] houses = new GameObject[2];
-	public Transform allHouses;
-	GameObject building;
-	Vector3 zero = Vector3.zero;
 	public GameObject[] GOArray;
 
-	public GameObject CreateHouse(){
-
-		building = Instantiate (houses[Random.Range(0,2)],zero,Quaternion.identity,allHouses);
-		CreateHouseEquipment (building);
-		return building;
-	}
-
-	private void CreateHouseEquipment(GameObject house){
+	public GameObject PutEquipment(GameObject house){
 		Transform places;
 		int childCount;
 		GameObject decorElement;
@@ -29,7 +18,7 @@ public class HouseGenerator : MonoBehaviour {
 		childCount = places.childCount;
 
 		for (int i = 0; i < childCount; i++) {
-			index = Random.Range (0, GOArray.Length);
+			index = Random.Range (0, GOArray.Length - 1);
 			child = places.GetChild (i);
 
 			if (GOArray [index].name == "Bed") {
@@ -43,6 +32,10 @@ public class HouseGenerator : MonoBehaviour {
 				decorElement = Instantiate (GOArray [index], places.GetChild (i).position, Quaternion.identity, child);
 				decorElement.transform.LookAt (child.GetChild (0));
 			}
+
+
 		}
+
+		return house;
 	}
 }

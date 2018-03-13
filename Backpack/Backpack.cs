@@ -1,10 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Backpack : MonoBehaviour {
-	private const  int CELL_WIDTH = 10;
-	private const  int CELL_HEIGTH = 20;
 
 	private  int _rowCount;
 	private  int _columnCount;
@@ -30,6 +28,8 @@ public class Backpack : MonoBehaviour {
 			}
 		}
 	}
+
+
 
 	public Item  Add(Item  item){
 		int checker = 0;
@@ -67,7 +67,7 @@ public class Backpack : MonoBehaviour {
 
 		return item;
 	}
-
+		
 	public int ColumnCount{
 		get{	
 			return _columnCount;

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -119,27 +119,33 @@ public class ShowBackpack : MonoBehaviour {
 			if (GUI.Button (coordinateRect, cell.CellItem.ItemTexture)) {
 				if (isOpenedChest  && isOpenedBackpack) {
 					if (Input.GetMouseButtonUp (1)) {
-						cell.CellItem.UseItem (human);
-						if (cell.CellItem.NowInStack == 0)
-							cell.CellItem = null;
-					} else {
-						Debug.Log (cell.CellItem);
+						if (cell.CellItem != null && cell.CellItem.Type != Item.ItemType.Ammunition) {
+							Cell commonCell = new Cell (cell.CellIndex);
+							commonCell.CellItem = human.PersonWeapon;
+							cell.CellItem.UseItem (human);
+							cell.CellItem = commonCell.CellItem;
+						} else {
+							cell.CellItem.UseItem (human);
+							if (cell.CellItem.NowInStack == 0)
+								cell.CellItem = null;
+						}
+					}else {
 						cell.CellItem = recipient.Add (cell.CellItem);
 					}
 				}
 			}
 		} else {
 			if (GUI.Button (coordinateRect, cell.CellIndex.ToString ())) {
-				Debug.Log (cell.CellIndex);
-				if (human.PersonWeapon != null){
-					cell.CellItem = human.PersonWeapon;
-					cell.CellItem.NowInStack++;
-					human.PersonWeapon = null;
+				if (human.PersonWeapon != null) {
+						cell.CellItem = human.PersonWeapon;
+						cell.CellItem.NowInStack++;
+						human.PersonWeapon = null;
+					}
 				}
 			}
 		}
 	}
 
 
-}
+
 

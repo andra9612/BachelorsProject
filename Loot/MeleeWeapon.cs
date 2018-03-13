@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ public class MeleeWeapon : Weapon {
 
 	public MeleeWeapon (Texture2D texture, string name, int maxInStack, int nowInStack,
 	                   int  durability, ItemType itemType, int damage, int range, int tiredness)
-		:base(damage,range,texture,name,maxInStack,nowInStack,durability, ItemType.RangeWeapon)
+		:base(damage,range,texture,name,maxInStack,nowInStack,durability, ItemType.MeleeWeapon )
 	{
 		Tiredness = tiredness;
 	}

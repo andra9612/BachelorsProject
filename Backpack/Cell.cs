@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,9 +16,8 @@ public class Cell{
 
 	public Cell(int index){
 		CellIndex = index;
-		//CellItem = new Item();
 		CellItem = null;
-		//CellTexture = null;
+		CellTexture = null;
 	}
 
 	public Texture2D CellTexture{
