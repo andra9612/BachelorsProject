@@ -9,8 +9,9 @@ public class Backpack : MonoBehaviour {
 
 	public Cell[,] cellMatrix;
 
+
 	/*void Start(){
-		InitializeCellMatrix ();
+		InitializeCellMatrix (5,4);
 	}*/
 
 	public void InitializeCellMatrix(int row, int col){
@@ -67,6 +68,7 @@ public class Backpack : MonoBehaviour {
 
 		return item;
 	}
+		
 		
 	public int ColumnCount{
 		get{	
