@@ -3,54 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CityMatrixGenerator{
+public static class RoadMatrixGenerator{
 
-	private int _rows;
-	private int _columns;
-	private int _lastIndex;
+	 static int _lastIndex;
 
-	public int Rows{
-		get{ 
-			return _rows;
-		}
-		set{ 
-			if (value <= 0)
-				_rows = 1;
-			else
-				_rows = value;
-		}
-	}
-
-	public int Columns{
-		get{ 
-			return _columns;
-		}
-		set{ 
-			if (value <= 0)
-				_columns = 1;
-			else
-				_columns = value;
-		}
-	}
 		
-	public CityMatrixGenerator(int row, int col){
+	/*public RoadMatrixGenerator(int row, int col){
 		Rows = row;
 		Columns = col;
 		_lastIndex = 1;
-	}
+	}*/
 
-	public Square[,] GenerateSityMatrix(){
+	public static Square[,] GenerateSityMatrix(Square[,] squareMatrix){
 		int streatCount = 0;
-		Square[,] squareMatrix = new Square[Rows,Columns];
-
+		_lastIndex = 0;
 		for (int i = 0; i < squareMatrix.GetLength(0); i++) {
 			for (int j = 0; j < squareMatrix.GetLength(1); j++) {
 				squareMatrix [i, j] = new Square ();
 			}
 		}
-		ChoseMainStreat (ref squareMatrix);
+		ChoseMainStreat (ref squareMatrix,squareMatrix.GetLength(0),squareMatrix.GetLength(1));
 
-		streatCount = Random.Range (1,5);
+		streatCount = Random.Range (50,131);
 
 		for (int i = 0; i < streatCount; i++) {
 			squareMatrix = GenerateRandomStreat (squareMatrix);
@@ -60,7 +34,7 @@ public class CityMatrixGenerator{
 		return squareMatrix;
 	}
 
-	private Square[,] GenerateRandomStreat(Square[,] squareMatrix){
+	private static Square[,] GenerateRandomStreat(Square[,] squareMatrix){
 		int randomIndex = 0;
 		int counter = 0;
 		bool isEnd = false;
@@ -76,7 +50,7 @@ public class CityMatrixGenerator{
 					counter++;
 			}
 
-			if(counter == 12)
+			if(counter == 20)
 				return squareMatrix;
 
 		} while (!isEnd);
@@ -85,7 +59,7 @@ public class CityMatrixGenerator{
 
 	}
 
-	private bool CheckIfItsPossibleToGenerateStreat(ref Square[,] squareMatrix, int index, Direction direction){
+	private static bool CheckIfItsPossibleToGenerateStreat(ref Square[,] squareMatrix, int index, Direction direction){
 		int row = 0;
 		int col = 0;
 		bool isEnd = false;
@@ -95,11 +69,14 @@ public class CityMatrixGenerator{
 					row = i;
 					col = j;
 
+					//GetNext (ref row, ref col, direction);
 					CenterForCurrentDirection (ref row, ref col,squareMatrix[row,col].CurrentDirection,direction);
 					if (!CheckNextSquares (squareMatrix, direction, col, row))
 						isEnd = true;
-					else 
-						squareMatrix = FillCells (squareMatrix,col,row,3,Prefab.Streat,direction);
+					else {
+						squareMatrix = FillCells (squareMatrix, col, row, 3, Prefab.Streat, direction);
+						return true;
+					}
 
 					if (isEnd)
 						return false;
@@ -110,7 +87,7 @@ public class CityMatrixGenerator{
 		return true;
 	}
 
-	private void CenterForCurrentDirection(ref int row, ref int col, Direction curDirection,Direction direction){
+	private static void CenterForCurrentDirection(ref int row, ref int col, Direction curDirection,Direction direction){
 		if (curDirection == Direction.Left || curDirection == Direction.Right) {
 			switch (direction) {
 			case Direction.Left:
@@ -149,7 +126,7 @@ public class CityMatrixGenerator{
 			}
 	}
 
-	private bool CheckNextSquares(Square[,] squareMatrix,Direction direction, int col, int row){
+	private static bool CheckNextSquares(Square[,] squareMatrix,Direction direction, int col, int row){
 		int counter = 0;
 		bool isEnd = false;
 		for (int i = 0; i < 3; i++) {
@@ -185,7 +162,7 @@ public class CityMatrixGenerator{
 		return true;
 	}
 
-		private void GetNext (ref int row, ref int col,Direction direction){
+	private static void GetNext (ref int row, ref int col,Direction direction){
 		switch (direction) {
 		case Direction.Up:
 			row--;
@@ -202,26 +179,26 @@ public class CityMatrixGenerator{
 		}
 	}
 
-	private void  ChoseMainStreat(ref Square[,] squareMatrix){
+	private static void  ChoseMainStreat(ref Square[,] squareMatrix, int rows, int cols){
 		int randomSide = 0;//chose rows or columns
 		int randomIndex = 0;//index of row or col for creatingThe Streat
 
 		randomSide = Random.Range (0,2);//0- rows, 1 - columns
 		if (randomSide == 0) {
-			randomIndex = Random.Range (0, Rows);
+			randomIndex = Random.Range (0, rows);
 			squareMatrix = FillCells (squareMatrix,0,randomIndex,squareMatrix.GetLength(0),Prefab.Streat,Direction.Right);
 
 		} else {
-			randomIndex = Random.Range (0, Columns);
+			randomIndex = Random.Range (0, cols);
 			squareMatrix = FillCells (squareMatrix,randomIndex,0,squareMatrix.GetLength(1),Prefab.Streat,Direction.Down);
 		}
 	}
 
-	private Square[,] FillCells(Square[,] squareMatrix,int colIndex, int rowIndex , int count, Prefab prefab, Direction direction ){
+	private  static Square[,] FillCells(Square[,] squareMatrix,int colIndex, int rowIndex , int count, Prefab prefab, Direction direction ){
 		int counter = 0;
 		int iterationCounter = 0;
 
-		for (int i = 0; i < squareMatrix.GetLength(0); i++) {
+		/*for (int i = 0; i < squareMatrix.GetLength(0); i++) {
 			for (int j = 0; j < squareMatrix.GetLength (1); j++) {
 				if (counter != count) {
 					if (i == rowIndex && j == colIndex) {
@@ -257,6 +234,37 @@ public class CityMatrixGenerator{
 					return squareMatrix;
 				}
 
+			}
+		}*/
+
+		for (int i = 0; i < count; i++) {
+			squareMatrix [rowIndex, colIndex].CurentPrefab = prefab;
+			squareMatrix [rowIndex, colIndex].StreatIndex = _lastIndex;
+			squareMatrix [rowIndex, colIndex].CurrentDirection = direction;
+
+			iterationCounter++;
+			counter++;
+
+			GetNext (ref rowIndex,ref colIndex,direction);
+
+			/*switch (direction) {
+			case Direction.Up:
+				rowIndex--;
+				break;
+			case Direction.Right:
+				colIndex++;
+				break;
+			case Direction.Down:
+				rowIndex++;
+				break;
+			case Direction.Left:
+				colIndex--;
+				break;
+			}*/
+
+			if (iterationCounter == 3) {
+				_lastIndex++;
+				iterationCounter = 0;
 			}
 		}
 

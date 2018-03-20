@@ -6,7 +6,7 @@ public static class ActionManager {
 	
 	static string _actionType;
 
-	public static void ActionMaker(List<GameObject> selectedObjects, GameObject target, Vector3 position, bool isHeal)
+	public static void ActionMaker(List<Human> selectedObjects, GameObject target, Vector3 position, bool isHeal)
 	{		
 		switch (target.tag) 
 		{
@@ -27,7 +27,7 @@ public static class ActionManager {
 			break;
 		}
 
-		foreach (GameObject go in selectedObjects) 
+		foreach (Human go in selectedObjects) 
 		{
 			go.GetComponent<ActionMaker>().MakeAction(target, position, _actionType);
 		}
