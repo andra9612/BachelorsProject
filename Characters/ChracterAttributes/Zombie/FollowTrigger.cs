@@ -7,6 +7,7 @@ public class FollowTrigger : MonoBehaviour {
 
 	private NavMeshAgent agent;
 	public List <GameObject> characters;
+	private GameObject target;
 
 	void Start () 
 	{
@@ -33,7 +34,8 @@ public class FollowTrigger : MonoBehaviour {
 	{
 		if (characters.Count != 0) 
 		{
-			this.gameObject.transform.parent.gameObject.GetComponent<ZombieMoving> ().FindClosestTarget (characters);
+			target = this.gameObject.transform.parent.gameObject.GetComponent<ZombieMoving> ().FindClosestTarget (characters);
+			agent.SetDestination(target.transform.position);
 		}
 	}
 		

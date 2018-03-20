@@ -44,19 +44,9 @@ public class WallCollideTrigger : MonoBehaviour {
 
 	private void AttackClosestTarget ()
 	{
-		
-
 		if (attackTimer == 0)
 		{
-			distance = float.MaxValue;
-			foreach (GameObject go in attackableTargets) 
-			{
-				if (Vector3.Distance (go.transform.position, this.transform.position) < distance) 
-				{
-					distance = Vector3.Distance (go.transform.position, this.transform.position);
-					target = go;
-				}
-			}
+			target = this.gameObject.transform.parent.gameObject.GetComponent<ZombieMoving> ().FindClosestTarget (attackableTargets);
 			target.GetComponent<Human> ().BaseHealth -= this.gameObject.transform.parent.gameObject.GetComponent<Zombie> ().BaseDamage;
 			attackTimer = this.gameObject.transform.parent.gameObject.GetComponent<Zombie> ().BaseAttackSpeed;
 		}

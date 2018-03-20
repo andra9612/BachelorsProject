@@ -14,7 +14,7 @@ public class ZombieMoving : MonoBehaviour {
 	private float distance;
 	public Vector3 moveFromPosition;
 	public bool isPatrolling;
-	public float[] patrollPoints;
+	public Vector3[] patrollPoints;
 
 	void Start () 
 	{
@@ -62,7 +62,7 @@ public class ZombieMoving : MonoBehaviour {
 	private void GoToNextPatrollPoint()
 	{
 		int index = Random.Range (0, 50);
-		//agent.SetDestination (patrollPoints [index]);
+		agent.SetDestination (patrollPoints [index]);
 	}
 
 	public void MoveToPoint(Vector3 point)
@@ -70,18 +70,19 @@ public class ZombieMoving : MonoBehaviour {
 		agent.SetDestination (point);
 	}
 
-	public void FindClosestTarget (List<GameObject> characters)
+	public GameObject FindClosestTarget (List<GameObject> characters)
 	{
 		distance = float.MaxValue;
+		GameObject target = null;
 		foreach (GameObject go in characters) 
 		{
 			if (Vector3.Distance (go.transform.position, this.transform.position) < distance) 
 			{
 				distance = Vector3.Distance (go.transform.position, this.transform.position);
-				targetPosition = go.transform.position;
+				target = go;
 			}
 		}
-		MoveToPoint(targetPosition);
+		return target;
 	}
 
 }
