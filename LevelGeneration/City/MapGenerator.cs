@@ -40,6 +40,7 @@ public class MapGenerator{
 
 	public Square[,] GenerateMap(){
 		squareMatrix = RoadMatrixGenerator.GenerateSityMatrix (squareMatrix);
+		squareMatrix = HouseMatrixGenerator.GenerateHouses (squareMatrix,15);
 		return squareMatrix;
 	}
 }

@@ -34,8 +34,30 @@ public class Square{
 		CurrentDirection = Direction.None;
 	}
 
-	public int StreatIndex{ get; set; }
-	public Prefab CurentPrefab{ get;set;}
-	public Direction CurrentDirection{ get;set;}
+	public int StreatIndex{
+		get{ 
+			return _streatIndex;
+		} 
+		set{ 
+			_streatIndex = value;
+		} 
+	}
+	public Prefab CurentPrefab{ 
+		get{ 
+			return _prefab;
+		}
+		set{ 
+			_prefab = value;
+		}
+	}
+
+	public Direction CurrentDirection{
+		get{ 
+			return _direction;
+		}
+		set{ 
+			_direction = value;
+		}
+	}
 
 }
