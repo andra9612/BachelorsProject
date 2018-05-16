@@ -1,17 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class WallCollideTrigger : MonoBehaviour {
+public class WallCollideAndAttackTrigger : MonoBehaviour {
 
 	private float attackTimer;
 	private List<GameObject> attackableTargets;
 	private float distance;
 	private GameObject target;
+	private NavMeshAgent agent;
 
 	void Start()
 	{
 		attackTimer = 0f;
+		attackableTargets = new List<GameObject> ();
+		agent = this.gameObject.transform.parent.gameObject.GetComponent<NavMeshAgent> ();
 	}
 
 	void Update()
@@ -28,7 +32,8 @@ public class WallCollideTrigger : MonoBehaviour {
 		}
 		if (collider.CompareTag ("Player")) 
 		{
-			this.gameObject.GetComponent<ZombieMoving> ().timer = -1.0f;
+			agent.Stop();
+			transform.parent.GetComponent<FollowTrigger> ().isAttacking = true;
 			attackableTargets.Add (collider.gameObject);
 		}
 			
@@ -39,6 +44,8 @@ public class WallCollideTrigger : MonoBehaviour {
 		if (collider.CompareTag ("Player")) 
 		{
 			attackableTargets.RemoveAll(c => c.GetInstanceID() == collider.gameObject.GetInstanceID());
+			if(attackableTargets.Count == 0)
+				transform.parent.GetComponent<FollowTrigger> ().isAttacking = false;	
 		}
 	}
 
@@ -49,6 +56,7 @@ public class WallCollideTrigger : MonoBehaviour {
 			target = this.gameObject.transform.parent.gameObject.GetComponent<ZombieMoving> ().FindClosestTarget (attackableTargets);
 			target.GetComponent<Human> ().BaseHealth -= this.gameObject.transform.parent.gameObject.GetComponent<Zombie> ().BaseDamage;
 			attackTimer = this.gameObject.transform.parent.gameObject.GetComponent<Zombie> ().BaseAttackSpeed;
+			Debug.Log ("attacking " + target.name);
 		}
 
 	}
